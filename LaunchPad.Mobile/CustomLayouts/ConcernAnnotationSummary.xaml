@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<controls:AnimationPage xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:controls="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                        xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts"
+                        xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+                        BackgroundColor="#ffffff"
+                        NavigationPage.HasBackButton="False"
+                        x:Class="LaunchPad.Mobile.CustomLayouts.ConcernAnnotationSummary">
+    <controls:AnimationPage.PageAnimation>
+        <controls:PushPageAnimation Duration="Medium" Subtype="FromRight" />
+    </controls:AnimationPage.PageAnimation>
+    <NavigationPage.TitleView>
+        <customlayouts:TitleBarLayoutV2/>
+    </NavigationPage.TitleView>
+    <FlexLayout Direction="Row" HorizontalOptions="Fill" VerticalOptions="Fill" FlexLayout.Basis="100%"
+                Padding="0">
+
+        <FlexLayout Direction="Column" HorizontalOptions="Fill" VerticalOptions="Fill" FlexLayout.Basis="30%"
+                    BackgroundColor="White">
+
+             <FlexLayout Direction="Column" FlexLayout.Basis="10%" JustifyContent="Center" VerticalOptions="Center"
+                         HorizontalOptions="Center">
+                 <Label Text="Your main concerns" FontSize="Title" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                       TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"></Label>
+             </FlexLayout>
+            <FlexLayout Direction="Column" FlexLayout.Basis="50%">
+                <ListView x:Name="listItems" Margin="20" HasUnevenRows="True" SeparatorColor="LightGray">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Padding="10,5,10,5" BackgroundColor="White">
+                                    <Label Text="⬤" TextColor="{Binding ItemColour}" HorizontalTextAlignment="End"
+                                           VerticalTextAlignment="Center" Margin="5,0,0,0" FontSize="Large"></Label>
+                                    <Label Text="{Binding ItemName}" TextColor="DarkGray" HorizontalTextAlignment="Start"
+                                           VerticalTextAlignment="Center" Margin="5,0,0,0" FontSize="Medium"/>
+                                </StackLayout>  
+                    </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    
+                </ListView>
+            </FlexLayout>
+
+            <FlexLayout Direction="Column" FlexLayout.Basis="10%" JustifyContent="Center" VerticalOptions="Center"
+                         HorizontalOptions="Center">
+                 <Label Text="Notes" FontSize="Title" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                       TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"></Label>
+             </FlexLayout>
+
+             <FlexLayout Direction="Column" FlexLayout.Basis="30%" JustifyContent="Start" VerticalOptions="FillAndExpand"
+                         HorizontalOptions="FillAndExpand">
+
+                 <ListView x:Name="listNotes" Margin="20" HasUnevenRows="True" SeparatorColor="LightGray" ItemSelected="listNotes_ItemSelected"
+                           IsPullToRefreshEnabled="True" Refreshing="listNotes_Refreshing">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Padding="10,5,10,5" BackgroundColor="White">
+                                    <Label Text="{Binding Message}" TextColor="Black" HorizontalTextAlignment="Start"
+                                           VerticalTextAlignment="Center" Margin="5,0,0,0" FontSize="Small"></Label>
+                                    <Label Text="{Binding Time}" TextColor="Gray" HorizontalTextAlignment="Start"
+                                           VerticalTextAlignment="Center" Margin="5,0,0,0" FontSize="Micro"/>
+                                </StackLayout>  
+                    </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    
+                </ListView>
+            </FlexLayout>
+            
+
+    </FlexLayout>
+
+         <FlexLayout Direction="Row" HorizontalOptions="Center" VerticalOptions="Center" FlexLayout.Basis="70%"
+                     BackgroundColor="White" JustifyContent="Center" Margin="10">
+             
+             <Image VerticalOptions="Center" HorizontalOptions="Center" Aspect="AspectFit" x:Name="imgPreviewF"
+                    BackgroundColor="Transparent" FlexLayout.AlignSelf="Center" Opacity="1"
+                    IsVisible="false"></Image>
+
+             <Image VerticalOptions="Center" HorizontalOptions="Center" Aspect="AspectFit" x:Name="imgPreviewB"
+                    BackgroundColor="Transparent" FlexLayout.AlignSelf="Center" Opacity="1"
+                    IsVisible="false"></Image>
+
+    </FlexLayout>
+
+    </FlexLayout>
+
+</controls:AnimationPage>

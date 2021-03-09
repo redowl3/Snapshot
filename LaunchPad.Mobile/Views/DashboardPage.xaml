@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:AnimationPage  xmlns:controls="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                         xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts"
+             x:Class="LaunchPad.Mobile.Views.DashboardPage"
+              NavigationPage.HasBackButton="False"
+             BackgroundColor="#fff">
+    <controls:AnimationPage.PageAnimation>
+        <controls:PushPageAnimation Duration="Medium" Subtype="FromRight" />
+    </controls:AnimationPage.PageAnimation>
+    <NavigationPage.TitleView>
+        <customlayouts:TitleBarLayoutV2/>
+    </NavigationPage.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_list" Command="{Binding ViewPlanCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid CompressedLayout.IsHeadless="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="250"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="1">
+                <BoxView HeightRequest="1" BackgroundColor="#000"/>
+                <ScrollView Orientation="Horizontal">
+                    <StackLayout BindableLayout.ItemsSource="{Binding UserActivities}" Orientation="Horizontal" Spacing="10" Padding="20,10">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid RowDefinitions="Auto,Auto" WidthRequest="200">
+                                    <Grid WidthRequest="200" HeightRequest="150" BackgroundColor="WhiteSmoke">
+                                        <Image Source="{Binding Product.ImageUrl}" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </Grid>
+                                    <StackLayout Grid.Row="1">
+                                        <Label Text="{Binding Product.Product.Name,Converter={StaticResource CamelCaseConverter}}" TextTransform="Default" FontSize="16" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image Source="icon_left_arrow" HeightRequest="20" WidthRequest="20"/>
+                                            <Label Text="{Binding PerformedOn,Converter={StaticResource DaysGetter}}" FontSize="16" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                        </StackLayout>
+                                    </StackLayout>                                   
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+            <Grid Grid.Row="2" ColumnSpacing="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Text="Start New Consultation" FontSize="24" TextColor="#fff" Background="#000" TextTransform="None" Command="{Binding ConsultationCommand}" FontFamily="RegularFont"/>
+                <Button Grid.Column="1" Text="History" FontSize="24" Background="#000" TextColor="#fff" TextTransform="None" Command="{Binding ViewHistoryCommand}" FontFamily="RegularFont"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</controls:AnimationPage>

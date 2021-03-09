@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:AnimationPage xmlns:controls="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                        xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts" 
+                        xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                        x:Class="LaunchPad.Mobile.Views.ConsultationSummaryPage"
+                        NavigationPage.HasBackButton="False"
+                        BackgroundColor="#fff">
+    <controls:AnimationPage.PageAnimation>
+        <controls:PushPageAnimation Duration="Medium" Subtype="FromRight" />
+    </controls:AnimationPage.PageAnimation>
+    <NavigationPage.TitleView>
+        <customlayouts:TitleBarLayoutV2/>
+    </NavigationPage.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_list" Command="{Binding ViewPlanCommand}"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout Padding="40" Spacing="40">
+        <Label Text="{Binding UserActivity.PerformedOn,Converter={StaticResource DateTimeFormatter}}" FontSize="32" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+        <Grid RowDefinitions="75,Auto">
+            <Label Text="Products &amp; treatments" FontSize="28" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+            <ScrollView Orientation="Horizontal" Grid.Row="1">
+                <StackLayout BindableLayout.ItemsSource="{Binding UserActivity.Activity.Consultations.ItemsCollection}" Orientation="Horizontal" Spacing="20">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowDefinitions="200,Auto" ColumnDefinitions="220">
+                                <Grid BackgroundColor="WhiteSmoke">
+                                    <Image Source="{Binding Product.ImageUrl}" HorizontalOptions="Center" VerticalOptions="Center" Margin="10"/>                                    
+                                </Grid>
+                                <Label Grid.Row="1" Text="{Binding Product.Product.Name,Converter={StaticResource CamelCaseConverter}}" TextTransform="Default" FontSize="18" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </StackLayout>
+</controls:AnimationPage>

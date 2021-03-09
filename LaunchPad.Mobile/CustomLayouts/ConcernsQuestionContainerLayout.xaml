@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LaunchPad.Mobile.CustomLayouts.ConcernsQuestionContainerLayout"
+             x:Name="View1"
+             VerticalOptions="FillAndExpand">
+    <ContentView.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <ScrollView VerticalOptions="FillAndExpand">
+                <StackLayout VerticalOptions="FillAndExpand" x:Name="ConcernsQuestionContainer" BindableLayout.ItemsSource="{Binding ConcernAndSkinCareQuestions}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <FlexLayout IsVisible="{Binding IsSelected}" BindableLayout.ItemsSource="{Binding Questions}"  Wrap="Wrap" Direction="Row" JustifyContent="Start" AlignItems="Start" AlignContent="Start" HorizontalOptions="FillAndExpand" Margin="2,0">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout FlexLayout.Basis="{Binding BindingContext.Basis,Source={x:Reference View1}}">
+                                            <Grid IsVisible="{Binding IsGroup}">
+                                                <StackLayout>
+                                                    <Grid HorizontalOptions="Center" WidthRequest="600">
+                                                        <Label Text="{Binding QuestionGuid}" IsVisible="False" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                        <Label Text="{Binding FormQuestionData.QuestionText}" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                    </Grid>
+                                                    <FlexLayout IsVisible="{Binding BindingContext.Page1,Source={x:Reference View1}}" BindableLayout.ItemsSource="{Binding ChildQuestions}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="50,0,50,0" 
+                                                                Direction="Row" JustifyContent="SpaceAround" Wrap="Wrap" WidthRequest="800">
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <StackLayout Orientation="Vertical" IsVisible="{Binding FormQuestionData.ImageUrl,Converter={StaticResource StringToVisibilityConverter}}" 
+                                                                                 VerticalOptions="Center" Margin="0,0,0,50" WidthRequest="250">
+                                                                    <ImageButton Source="{Binding FormQuestionData.ImageUrl}" VerticalOptions="Center" HeightRequest="100" BackgroundColor="Transparent"
+                                                                            CommandParameter="{Binding FormQuestionData.Answers}" Clicked="ConcernTypeSelected" Margin="0,0,0,5"/>
+                                                                    <Button Text="{Binding FormQuestionData.Answers[0].ResponseText}" FontSize="Micro" BorderColor="Black" 
+                                                                            BackgroundColor="Transparent" TextColor="Black" BorderWidth="1" CornerRadius="20" WidthRequest="200" HeightRequest="35"
+                                                                            CommandParameter="{Binding FormQuestionData.Answers}" Clicked="ConcernTypeSelected"></Button>
+                                                                </StackLayout>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </FlexLayout>
+                                                    <StackLayout IsVisible="{Binding BindingContext.Page1,Source={x:Reference View1},Converter={StaticResource InverseConverter}}" BindableLayout.ItemsSource="{Binding ChildQuestions}" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="2,0">
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <StackLayout>
+                                                                    <Grid IsVisible="{Binding IsHtml}" HorizontalOptions="Center" WidthRequest="600">
+                                                                        <Label Text="{Binding QuestionGuid}" IsVisible="False" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                                        <Label Text="{Binding FormQuestionData.QuestionText}" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                                    </Grid>
+                                                                    <ImageButton Source="{Binding FormQuestionData.ImageUrl}" VerticalOptions="Start" HeightRequest="100" BackgroundColor="Transparent"
+                                                                           IsVisible="{Binding FormQuestionData.ImageUrl,Converter={StaticResource StringToVisibilityConverter}}"
+                                                                                 CommandParameter="{Binding FormQuestionData.Answers}" Clicked="ConcernTypeSelected"/>                                                                   
+                                                                    <Frame CornerRadius="23" Padding="0" BorderColor="#000" HorizontalOptions="Center" IsVisible="{Binding IsDropdown}" Margin="0,5">
+                                                                        <Grid RowDefinitions="46,Auto" RowSpacing="0" WidthRequest="250">
+                                                                            <Grid Padding="20,0">
+                                                                                <Grid.GestureRecognizers>
+                                                                                    <TapGestureRecognizer Tapped="ToggleContainer" CommandParameter="{Binding FormQuestionData.QuestionText}" NumberOfTapsRequired="1"/>
+                                                                                    <TapGestureRecognizer Tapped="UnselectThis" CommandParameter="{Binding FormQuestionData.QuestionText}" NumberOfTapsRequired="2"/>
+                                                                                </Grid.GestureRecognizers>
+                                                                                <Label Text="{Binding QuestionGuid}" IsVisible="False" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+
+                                                                                <Label Text="{Binding FormQuestionData.QuestionText}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextType="Html" Style="{StaticResource ContentTitle}" Margin="0,0,20,0"/>
+                                                                                <Image Source="icon_down_arrow" WidthRequest="30" HeightRequest="30" HorizontalOptions="End"/>
+                                                                            </Grid>
+                                                                            <StackLayout x:Name="OptionContainer" Grid.Row="1" BindableLayout.ItemsSource="{Binding FormQuestionData.Answers}" IsVisible="False" Padding="20,10">
+                                                                                <BindableLayout.ItemTemplate>
+                                                                                    <DataTemplate>
+                                                                                        <Grid Margin="0,5">
+                                                                                            <Grid.GestureRecognizers>
+                                                                                                <TapGestureRecognizer Tapped="OptionTapped" NumberOfTapsRequired="1" CommandParameter="{Binding ResponseText}"/>
+                                                                                            </Grid.GestureRecognizers>
+                                                                                            <Label Text="{Binding ResponseText}" FontSize="18" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Style="{StaticResource ContentTitle}" Margin="0,0,20,0"/>
+                                                                                            <Image Source="icon_down_arrow" WidthRequest="30" HeightRequest="30" HorizontalOptions="End"/>
+                                                                                        </Grid>
+                                                                                    </DataTemplate>
+                                                                                </BindableLayout.ItemTemplate>
+                                                                            </StackLayout>
+                                                                        </Grid>
+                                                                    </Frame>
+                                                                    <Label Text="{Binding FormQuestionData.ImageUrl}" IsVisible="False" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                                    <!--<customlayouts:YesNoWithTextAreaLayout  Padding="10,10"/>-->
+                                                                    <Grid RowSpacing="0" IsVisible="{Binding IsYesNoWithTextArea}">
+                                                                        <Grid.RowDefinitions>
+                                                                            <RowDefinition Height="Auto"/>
+                                                                            <RowDefinition Height="Auto"/>
+                                                                        </Grid.RowDefinitions>
+                                                                        <Grid RowDefinitions="46" IsVisible="{Binding IsYesNo}">
+                                                                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                                                                <Button x:Name="YesButton" Text="Yes" TextTransform="None" WidthRequest="300" FontSize="18" CornerRadius="23" BorderColor="#000" BorderWidth="2" BackgroundColor="#fff" Clicked="YesNoButtonClicked"/>
+                                                                                <Button x:Name="NoButton" Text="No" TextTransform="None" WidthRequest="300" FontSize="18" CornerRadius="23" BorderColor="#000" BorderWidth="2" BackgroundColor="#fff" Clicked="YesNoButtonClicked"/>
+                                                                            </StackLayout>
+                                                                        </Grid>
+                                                                        <Frame Grid.Row="1" x:Name="TextAreaContainer" Padding="0" BorderColor="#000" HasShadow="False" HorizontalOptions="Center" WidthRequest="600" IsVisible="{Binding IsTextArea}">
+                                                                            <Grid RowDefinitions="100" Padding="15">
+                                                                                <Label Text="{Binding QuestionGuid}" IsVisible="False" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                                                <Editor HeightRequest="100" FontSize="18" Unfocused="editor_unfocused"/>
+                                                                            </Grid>
+                                                                        </Frame>
+                                                                    </Grid>
+
+                                                                </StackLayout>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </Grid>
+                                            <Grid IsVisible="{Binding IsNestedGroup}">
+                                                <ScrollView>
+                                                    <StackLayout Spacing="-20">
+                                                        <Grid HorizontalOptions="Center" WidthRequest="600">
+                                                            <Label Text="{Binding QuestionGuid}" IsVisible="False" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                            <Label Text="{Binding FormQuestionData.QuestionText}" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                        </Grid>
+                                                        <FlexLayout BindableLayout.ItemsSource="{Binding ChildQuestions}" Wrap="Wrap" Direction="Row" JustifyContent="Start" AlignItems="Start" AlignContent="Start" HorizontalOptions="FillAndExpand" Margin="2,0">
+                                                            <BindableLayout.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <StackLayout FlexLayout.Basis="33%" FlexLayout.AlignSelf="Start" Margin="20,10">
+                                                                        <Grid IsVisible="{Binding IsGroup}">
+                                                                            <StackLayout BindableLayout.ItemsSource="{Binding ChildQuestions}" HorizontalOptions="FillAndExpand" Margin="2,0">
+                                                                                <BindableLayout.ItemTemplate>
+                                                                                    <DataTemplate>
+                                                                                        <StackLayout Spacing="20">
+                                                                                            <!--<Grid IsVisible="{Binding IsHtml}">
+                                                                                                <Label Text="{Binding FormQuestionData.QuestionText}" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource TabTitleLabelStyle}"/>
+                                                                                            </Grid>-->
+                                                                                            <Label Text="{Binding QuestionGuid}" IsVisible="False" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                                                            <Image Source="{Binding FormQuestionData.ImageUrl}" VerticalOptions="Start" HeightRequest="100"/>
+                                                                                            <StackLayout BindableLayout.ItemsSource="{Binding FormQuestionData.Answers}" HorizontalOptions="Start" Spacing="10" Margin="2,0" IsVisible="{Binding IsCheck}">
+                                                                                                <BindableLayout.ItemTemplate>
+                                                                                                    <DataTemplate>
+                                                                                                        <Grid RowDefinitions="46">
+                                                                                                            <Button Text="{Binding ResponseText}" BackgroundColor="#fff" TextTransform="None" FontSize="18" CornerRadius="23" BorderColor="#000" BorderWidth="2"  Clicked="OptionSelected"/>
+                                                                                                        </Grid>
+                                                                                                    </DataTemplate>
+                                                                                                </BindableLayout.ItemTemplate>
+                                                                                            </StackLayout>
+                                                                                            <StackLayout IsVisible="{Binding FormQuestionData.ImageUrl}">
+                                                                                                <ImageButton Source="icon_notes" HorizontalOptions="Center" Clicked="AllowNotes" HeightRequest="32" WidthRequest="32"/>
+                                                                                                <Frame IsVisible="False" x:Name="TextAreaContainer" Padding="0" BorderColor="#000" HasShadow="False" HorizontalOptions="Center" WidthRequest="600">
+                                                                                                    <Grid RowDefinitions="100" Padding="15">
+                                                                                                        <Label Text="{Binding QuestionGuid}" IsVisible="False" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                                                                        <Editor FontSize="18" HeightRequest="100" Unfocused="notes_added"/>
+                                                                                                    </Grid>
+                                                                                                </Frame>
+                                                                                            </StackLayout>
+                                                                                        </StackLayout>
+                                                                                    </DataTemplate>
+                                                                                </BindableLayout.ItemTemplate>
+                                                                            </StackLayout>
+                                                                        </Grid>
+                                                                        <Grid IsVisible="{Binding IsHtml}">
+                                                                            <Label Text="{Binding QuestionGuid}" IsVisible="False" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                                            <Label Text="{Binding FormQuestionData.QuestionText}" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource TabTitleLabelStyle}"/>
+                                                                        </Grid>
+                                                                    </StackLayout>
+                                                                </DataTemplate>
+                                                            </BindableLayout.ItemTemplate>
+                                                        </FlexLayout>
+                                                    </StackLayout>
+                                                </ScrollView>
+                                            </Grid>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </FlexLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+
+            </ScrollView>
+            <Grid RowDefinitions="46" VerticalOptions="EndAndExpand">
+                <Button BackgroundColor="#000" TextColor="#fff" Padding="0" Text="Save &amp; Continue" TextTransform="None" FontSize="20" HorizontalOptions="Center" WidthRequest="400" Clicked="SaveAndContinue"/>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

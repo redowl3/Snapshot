@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:SignaturePad.Forms;assembly=SignaturePad.Forms"
+             xmlns:viewmodels="clr-namespace:LaunchPad.Mobile.ViewModels"
+             x:Class="LaunchPad.Mobile.CustomLayouts.LetsRecapSurveyContainerLayout"
+             VerticalOptions="FillAndExpand">
+    <ContentView.BindingContext>
+        <viewmodels:LetsRecapSurveyPageViewModel/>
+    </ContentView.BindingContext>
+    <ContentView.Content>
+        <Grid RowDefinitions="*">
+            <!--page 1 -->
+            <StackLayout Spacing="30" BackgroundColor="#fff" Padding="20,20" IsVisible="{Binding Page1Visible}">
+                <Label Text="So, how would you summarise your skin goals?" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                <Frame x:Name="TextAreaContainer" Padding="0" BorderColor="#000" HasShadow="False" HorizontalOptions="Center" WidthRequest="600">
+                    <Grid RowDefinitions="100" Padding="15">
+                        <Label Text="{Binding QuestionGuid}" IsVisible="False" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        <Editor Text="{Binding SkinGoal}" HeightRequest="100" FontSize="18" />
+                    </Grid>
+                </Frame>
+                <Grid RowDefinitions="46" VerticalOptions="EndAndExpand">
+                    <Button BackgroundColor="#000" TextColor="#fff" Padding="0" Text="Save &amp; Continue" TextTransform="None" FontSize="20" HorizontalOptions="Center" WidthRequest="400" Command="{Binding Page1CompletedCommand}"/>
+                </Grid>
+            </StackLayout>
+            <!--page 2 -->
+            <ScrollView IsVisible="{Binding Page2Visible}">
+                <StackLayout Spacing="50" BackgroundColor="#fff" Padding="20,20" IsVisible="{Binding Page2Visible}">
+                    <Label Text="Your Personal Information" FontSize="32" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                    <Grid HorizontalOptions="Center" Padding="150,0">
+                        <Label Text="Except for where you have separately granted iiaa to store and process your before and after photographs and scan face data, iiaa itself does not store and process your other personal and medical data as captured on this record card- please liaise to the salon direct to understand its arrangements for data security and compliance with data legislation"
+                       FontSize="20" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                    </Grid>
+
+                    <StackLayout>
+                        <Label Text="TO THE BEST OF MY KNOWLEDGE THE MEDICAL INFORMATION IS RELEVENT AND FACTUALLY CORRECT" FontSize="26" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        <Frame Padding="2" HasShadow="False" BorderColor="Black">
+                            <Grid>
+                                <Grid HeightRequest="200" x:Name="PlaceholderContainer">
+                                    <Label Text="Please Sign To Confirm" Opacity="0.5" FontSize="32" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                </Grid>
+                                <controls:SignaturePadView
+                        x:Name="signatureView"
+                        StrokeWidth="3"
+                        StrokeColor="Black"
+                            CaptionText=""
+                            CaptionFontSize="28"
+                                SignatureLineColor="#fff"
+                        HeightRequest="200"
+                                BackgroundColor="Transparent"
+                                StrokeCompleted="signaturechanged"/>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <Grid RowDefinitions="46" VerticalOptions="EndAndExpand">
+                        <Button BackgroundColor="#000" TextColor="#fff" Padding="0" Text="Save &amp; Continue" TextTransform="None" FontSize="20" HorizontalOptions="Center" WidthRequest="400"  Command="{Binding Page2CompletedCommand}"/>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+
+            <!--Page 3-->
+            <ScrollView IsVisible="{Binding Page3Visible}">
+
+                <StackLayout IsVisible="{Binding Page3Visible}" Spacing="30" Padding="0,30">
+                    <Label Text="{Binding PageTitle}" FontSize="32" HorizontalTextAlignment="Center" TextType="Html" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                    <!--Health Survey Overview-->
+                    <StackLayout IsVisible="{Binding HealthSummaryVisible}">
+                        <Label Text="Health" FontSize="28" HorizontalTextAlignment="Start" TextType="Html" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        <FlexLayout BindableLayout.ItemsSource="{Binding HealthSurveySummaries,Mode=TwoWay}" Wrap="Wrap" Direction="Row" JustifyContent="Start" AlignItems="Start" AlignContent="Start" HorizontalOptions="FillAndExpand" Margin="2,0">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid RowDefinitions="*,2" HeightRequest="100" FlexLayout.Basis="33%" FlexLayout.AlignSelf="Start" Margin="5,10">
+                                        <Grid RowDefinitions="Auto,Auto,Auto" >
+                                            <Label Text="{Binding AnswerText}" VerticalTextAlignment="Center" TextColor="#000"  Style="{StaticResource ContentTitle}"/>
+                                            <Label Grid.Row="1" Text="{Binding SubAnswerText}" FontSize="16" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" IsVisible="{Binding HealthQuestions}" TextType="Html" TextColor="#000" FontFamily="RegularFont"/>
+                                            <Label Grid.Row="2" IsVisible="{Binding ConfigAnswerText,Converter={StaticResource StringToVisibilityConverter}}" VerticalTextAlignment="Center" FontSize="16" HorizontalTextAlignment="Start" TextType="Html" TextColor="#000" FontFamily="RegularFont">
+                                                <Label.Text>
+                                                    <MultiBinding StringFormat="{}Durations = {0}">
+                                                        <Binding Path="ConfigAnswerText"/>
+                                                    </MultiBinding>
+                                                </Label.Text>
+                                            </Label>
+                                        </Grid>
+                                        <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="#000"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+                    </StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="0" Spacing="30">
+                            <StackLayout Spacing="30" IsVisible="{Binding ConcernSurveySummaryVisible}">
+                                <Label Text="Skin Type" FontSize="28" HorizontalTextAlignment="Start" TextType="Html" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                <StackLayout BindableLayout.ItemsSource="{Binding ConcernSurveySummaries,Mode=TwoWay}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid RowDefinitions="56,2" ColumnDefinitions="56,*" Margin="0,5" ColumnSpacing="30">
+                                                <Image Source="{Binding ImageUrl}" VerticalOptions="Start" HeightRequest="56" WidthRequest="56"/>
+                                                <StackLayout Grid.Column="1" Orientation="Horizontal">
+                                                    <Label Text="{Binding AnswerText}" FontSize="24" TextType="Html" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                    <Label Text="-" FontSize="22" TextType="Html" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource TabTitleLabelStyle}"/>
+                                                    <Label Text="{Binding SubAnswerText}" FontSize="22" TextType="Html" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource TabTitleLabelStyle}"/>                                                    
+                                                </StackLayout>
+                                                
+                                                <BoxView Grid.Row="1" Grid.Column="1" HeightRequest="1" BackgroundColor="#000" Margin="0,0,100,0"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout Spacing="30" IsVisible="{Binding SkinGoal,Converter={StaticResource StringToVisibilityConverter}}">
+                                <Label Text="Skin goal" FontSize="28" HorizontalTextAlignment="Start" TextType="Html" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                <StackLayout Orientation="Horizontal" Spacing="20">
+                                    <Image Source="icon_goal" VerticalOptions="Start" HeightRequest="56" WidthRequest="56"/>
+                                    <Label Text="{Binding SkinGoal}" LineBreakMode="WordWrap" FontSize="28" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextType="Html" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                </StackLayout>
+                            </StackLayout>
+                           
+                            <StackLayout BindableLayout.ItemsSource="{Binding LifeStyleSurveySummaries}" IsVisible="{Binding LifestyleSummaryVisible}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout Spacing="30">
+                                            <Label Text="{Binding Title}" FontSize="28" HorizontalTextAlignment="Start" TextType="Html" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                            <StackLayout BindableLayout.ItemsSource="{Binding SurveySummaries,Mode=TwoWay}">
+                                                <BindableLayout.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid RowDefinitions="56,2" ColumnDefinitions="56,*" Margin="0,5" ColumnSpacing="30">
+                                                            <Image Source="{Binding ImageUrl}" VerticalOptions="Start" HeightRequest="56" WidthRequest="56"/>
+                                                            <Label Grid.Column="1" Text="{Binding AnswerText}" FontSize="24" TextType="Html" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                            <BoxView Grid.Row="1" Grid.Column="1" HeightRequest="1" BackgroundColor="#000" Margin="0,0,100,0"/>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </BindableLayout.ItemTemplate>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" Spacing="30">
+                            <StackLayout BindableLayout.ItemsSource="{Binding DietSurveySummaries}" IsVisible="{Binding DietSummaryVisible}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout Spacing="30">
+                                            <Label Text="{Binding Title}" FontSize="28" HorizontalTextAlignment="Start" TextType="Html" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                            <StackLayout BindableLayout.ItemsSource="{Binding SurveySummaries,Mode=TwoWay}">
+                                                <BindableLayout.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid RowDefinitions="56,2" ColumnDefinitions="56,*" Margin="0,5" ColumnSpacing="30">
+                                                            <Image Source="{Binding ImageUrl}" VerticalOptions="Start" HeightRequest="56" WidthRequest="56"/>
+                                                            <StackLayout Grid.Column="1" Orientation="Horizontal">
+                                                                <Label Text="{Binding QuestionText}" FontSize="24" TextType="Html" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                                                <Label Text="-" FontSize="22" TextType="Html" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource TabTitleLabelStyle}"/>
+                                                                <Label Text="{Binding AnswerText}" FontSize="22" TextType="Html" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource TabTitleLabelStyle}"/>
+                                                                <Label Text="{Binding ConfigAnswerText}" FontSize="22" TextType="Html" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource TabTitleLabelStyle}"/>
+                                                            </StackLayout>
+                                                            <BoxView Grid.Row="1" Grid.Column="1" HeightRequest="1" BackgroundColor="#000" Margin="0,0,100,0"/>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </BindableLayout.ItemTemplate>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </StackLayout>
+                    </Grid>
+                    <Grid RowDefinitions="46" VerticalOptions="EndAndExpand">
+                        <Button BackgroundColor="#000" TextColor="#fff" Padding="0" Text="Continue" TextTransform="None" FontSize="20" HorizontalOptions="Center" WidthRequest="400"  Command="{Binding Page3CompletedCommand}"/>
+                    </Grid>
+                </StackLayout>
+
+            </ScrollView>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

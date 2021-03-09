@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:AnimationPage  xmlns:controls="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                         xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:LaunchPad.Mobile.ViewModels" 
+             xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts"
+             x:Class="LaunchPad.Mobile.Views.UserHistoryPage"
+             NavigationPage.HasBackButton="False"
+             BackgroundColor="#fff"
+                         x:Name="View1">
+    <controls:AnimationPage.PageAnimation>
+        <controls:PushPageAnimation Duration="Medium" Subtype="FromRight" />
+    </controls:AnimationPage.PageAnimation>
+    <NavigationPage.TitleView>
+        <customlayouts:TitleBarLayoutV2/>
+    </NavigationPage.TitleView>
+    <ContentPage.BindingContext>
+        <viewmodels:UserHistoryPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,56" VerticalOptions="FillAndExpand">
+            <StackLayout Spacing="40" Padding="20,40">
+                <Grid ColumnDefinitions="*,*,*" Padding="20,0">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="StartAndExpand" Spacing="10">
+                        <ImageButton Source="icon_group_1853" BackgroundColor="Transparent" WidthRequest="56" HeightRequest="56"/>
+                        <ImageButton Source="icon_group_1854" BackgroundColor="Transparent" WidthRequest="56" HeightRequest="56"/>
+                        <ImageButton Source="icon_group_1855" BackgroundColor="Transparent" WidthRequest="56" HeightRequest="56"/>
+                    </StackLayout>
+                    <Grid Grid.Column="1"  Margin="30,0,0,0">
+                        <Label Text="History" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextType="Html" TextColor="#000" Style="{StaticResource ContentTitle}" Margin="0,15,0,0"/>
+                    </Grid>
+                </Grid>                
+                <StackLayout>
+                   
+                    <StackLayout BindableLayout.ItemsSource="{Binding UserActivities}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Spacing="10">
+                                    <Label Text="{Binding Year}" FontSize="20" HorizontalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}" Margin="0,0,10,0"/>
+                                    <BoxView HeightRequest="1" BackgroundColor="#000"/>
+                                    <StackLayout BindableLayout.ItemsSource="{Binding UserActivities}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout>
+                                                <Grid Padding="0,15">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.ViewConsultationCommand,Source={x:Reference View1}}" CommandParameter="{Binding .}"/>
+                                        </Grid.GestureRecognizers>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="70"/>
+                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image/>
+                                        <StackLayout Grid.Column="1">
+                                            <Label Text="{Binding PerformedOn,Converter={StaticResource DateTimeFormatter}}" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Image Source="icon_left_arrow" HeightRequest="24" WidthRequest="24"/>
+                                                <Label Text="{Binding PerformedOn,Converter={StaticResource DaysGetter}}" FontSize="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <ScrollView Orientation="Horizontal" Grid.Column="2">
+                                            <StackLayout BindableLayout.ItemsSource="{Binding Activity.Consultations.ItemsCollection}" Orientation="Horizontal" Spacing="20">
+                                                <BindableLayout.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Product.ImageUrl}" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" VerticalOptions="Start"/>                                               
+                                                    </DataTemplate>
+                                                </BindableLayout.ItemTemplate>
+                                            </StackLayout>
+                                        </ScrollView>
+                                    </Grid>
+                                    <BoxView HeightRequest="1" BackgroundColor="#000"/>
+                                                </StackLayout>
+                                            </DataTemplate>
+
+                                        </BindableLayout.ItemTemplate>
+                                            
+                                    </StackLayout>
+                                </StackLayout>
+
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </StackLayout>
+                
+            </StackLayout>
+
+            <!--<Grid Grid.Row="1" RowDefinitions="46">
+                <Button x:Name="SaveButton" IsEnabled="False" BackgroundColor="WhiteSmoke" TextColor="#fff" Padding="0" Text="Save &amp; Continue" TextTransform="None" FontSize="20" HorizontalOptions="Center" WidthRequest="400"/>
+            </Grid>-->
+        </Grid>
+    </ContentPage.Content>
+</controls:AnimationPage>

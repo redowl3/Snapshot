@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<controls:AnimationPage xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:controls="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                        xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts"
+                        xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+                        BackgroundColor="#ffffff"
+                        NavigationPage.HasBackButton="False"
+                        x:Class="LaunchPad.Mobile.CustomLayouts.ConcernBodySelection">
+    <controls:AnimationPage.PageAnimation>
+        <controls:PushPageAnimation Duration="Medium" Subtype="FromRight" />
+    </controls:AnimationPage.PageAnimation>
+    <NavigationPage.TitleView>
+        <customlayouts:TitleBarLayoutV2/>
+    </NavigationPage.TitleView>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <skia:SKCanvasView Grid.Row="1" Grid.Column="1" Grid.RowSpan="5" x:Name="canvasFront"
+                           Margin="2" HorizontalOptions="Fill" VerticalOptions="Fill"
+                           Opacity="1" PaintSurface="canvasFront_PaintSurface"></skia:SKCanvasView>
+        <skia:SKCanvasView Grid.Row="1" Grid.Column="2" Grid.RowSpan="5" x:Name="canvasBack"
+                           Margin="2" HorizontalOptions="Fill" VerticalOptions="Fill"
+                           Opacity="1" PaintSurface="canvasBack_PaintSurface"></skia:SKCanvasView>
+
+        <FlexLayout Direction="Column" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"
+                                 JustifyContent="Start" Padding="0,20,8,0">
+
+            <Label x:Name="txtSubject" BackgroundColor="White" TextColor="Black" Text="Test"
+              Padding="10,2,10,2" Opacity="0.7" FontSize="Medium" HorizontalOptions="Center" FlexLayout.AlignSelf="Center"
+              VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+
+            <Button BackgroundColor="Gray" WidthRequest="40" HeightRequest="20" CornerRadius="10" IsEnabled="False"
+                        Margin="0,10,0,0" FlexLayout.AlignSelf="Center" x:Name="btnColorSelected"></Button>
+
+        </FlexLayout>
+
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="Start"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,0,0" Grid.Column="1" Grid.Row="1"></Label>
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="End"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,-7,0" Grid.Column="1" Grid.Row="1"></Label>
+
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="Start"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,0,0" Grid.Column="1" Grid.Row="2"></Label>
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="End"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,-7,0" Grid.Column="1" Grid.Row="2"></Label>
+
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="Start"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,0,0" Grid.Column="1" Grid.Row="3"></Label>
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="End"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,-7,0" Grid.Column="1" Grid.Row="3"></Label>
+
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="Start"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,0,0" Grid.Column="1" Grid.Row="4"></Label>
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="End"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,-7,0" Grid.Column="1" Grid.Row="4"></Label>
+
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="Start"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,0,0" Grid.Column="1" Grid.Row="5"></Label>
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="End"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,-7,0" Grid.Column="1" Grid.Row="5"></Label>
+        <Label Text="+" VerticalTextAlignment="End" HorizontalTextAlignment="Start"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,0,0,-15" Grid.Column="1" Grid.Row="5"></Label>
+        <Label Text="+" VerticalTextAlignment="End" HorizontalTextAlignment="End"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,0,-7,-15" Grid.Column="1" Grid.Row="5"></Label>
+
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="End"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,0,0" Grid.Column="2" Grid.Row="1"></Label>
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="End"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,0,0" Grid.Column="2" Grid.Row="2"></Label>
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="End"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,0,0" Grid.Column="2" Grid.Row="3"></Label>
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="End"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,0,0" Grid.Column="2" Grid.Row="4"></Label>
+        <Label Text="+" VerticalTextAlignment="Start" HorizontalTextAlignment="End"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,-15,0,0" Grid.Column="2" Grid.Row="5"></Label>
+        <Label Text="+" VerticalTextAlignment="End" HorizontalTextAlignment="End"
+                   FontSize="Title" TextColor="LightGray"
+                   Margin="0,0,0,-15" Grid.Column="2" Grid.Row="5"></Label>
+
+        <StackLayout Orientation="Vertical" Grid.Column="1" Grid.Row="1"
+                     BackgroundColor="Transparent">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Front_Tapped" CommandParameter="1"></TapGestureRecognizer>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Grid.Column="1" Grid.Row="2"
+                     BackgroundColor="Transparent">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Front_Tapped" CommandParameter="2"></TapGestureRecognizer>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Grid.Column="1" Grid.Row="3"
+                     BackgroundColor="Transparent">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Front_Tapped" CommandParameter="3"></TapGestureRecognizer>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Grid.Column="1" Grid.Row="4"
+                     BackgroundColor="Transparent">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Front_Tapped" CommandParameter="4"></TapGestureRecognizer>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Grid.Column="1" Grid.Row="5"
+                     BackgroundColor="Transparent">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Front_Tapped" CommandParameter="5"></TapGestureRecognizer>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Grid.Column="2" Grid.Row="1"
+                     BackgroundColor="Transparent">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Back_Tapped" CommandParameter="1"></TapGestureRecognizer>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Grid.Column="2" Grid.Row="2"
+                     BackgroundColor="Transparent">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Back_Tapped" CommandParameter="2"></TapGestureRecognizer>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Grid.Column="2" Grid.Row="3"
+                     BackgroundColor="Transparent">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Back_Tapped" CommandParameter="3"></TapGestureRecognizer>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Grid.Column="2" Grid.Row="4"
+                     BackgroundColor="Transparent">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Back_Tapped" CommandParameter="4"></TapGestureRecognizer>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Grid.Column="2" Grid.Row="5"
+                     BackgroundColor="Transparent">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Back_Tapped" CommandParameter="5"></TapGestureRecognizer>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+
+        <FlexLayout Direction="Column" Grid.Column="0" Grid.Row="5"
+                                 JustifyContent="End" Margin="0,0,0,0">
+
+            <ImageButton WidthRequest="50" HeightRequest="50" Source="preview" Aspect="AspectFit"
+                         x:Name="imgPrev" Clicked="Save_Button_Clicked" BackgroundColor="White"
+                         FlexLayout.AlignSelf="Start" Margin="20,0,0,0"></ImageButton>
+        </FlexLayout>
+
+        <FlexLayout Direction="Column" Grid.Column="0" Grid.Row="3"
+                                 JustifyContent="Center" Margin="0,0,0,0">
+
+            <ImageButton BackgroundColor="Transparent" WidthRequest="50" HeightRequest="50"
+                        Margin="20,0,0,0" FlexLayout.AlignSelf="Start" Source="erase"
+                        Clicked="btnErase_Clicked"></ImageButton>
+
+        </FlexLayout>
+
+        <ImageButton Source="exit" Aspect="AspectFit" WidthRequest="60" HeightRequest="60"
+                     HorizontalOptions="End" VerticalOptions="Start"
+                        BackgroundColor="Transparent" FlexLayout.AlignSelf="Center"
+                     Grid.Row="1" Grid.Column="3"
+                     Clicked="btnExit_Clicked" Margin="0,0,20,0"></ImageButton>
+
+    </Grid>
+
+</controls:AnimationPage>
